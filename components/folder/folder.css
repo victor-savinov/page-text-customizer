@@ -1,0 +1,29 @@
+/*-----------------------------------------------------------------------------
+>>> «FOLDER» COMPONENT
+-----------------------------------------------------------------------------*/
+
+.satus-folder
+{
+    display: flex;
+
+    height: 48px;
+    min-height: 48px;
+    padding: 0 16px;
+
+    cursor: pointer;
+
+    align-items: center;
+}
+
+.satus-folder svg
+{
+    display: block;
+
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+
+    opacity: .95;
+
+    fill: inherit;
+}

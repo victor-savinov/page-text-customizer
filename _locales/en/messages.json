@@ -1,0 +1,29 @@
+{
+    "applyToPlainText": {
+        "message": "Apply to plain text"
+    },
+    "applyToTextFields": {
+        "message": "Apply to text fields"
+    },
+    "categories": {
+        "message": "Categories"
+    },
+    "categoryName": {
+        "message": "Category name"
+    },
+    "create": {
+        "message": "Create"
+    },
+    "cancel": {
+        "message": "Cancel"
+    },
+    "categoryIsEmpty": {
+        "message": "Category is empty"
+    },
+    "favorites": {
+        "message": "Favorites"
+    },
+    "settings": {
+        "message": "Settings"
+    }
+}

@@ -1,0 +1,57 @@
+/*-----------------------------------------------------------------------------
+>>> «BUTTON» COMPONENT
+-------------------------------------------------------------------------------
+1.0 
+-----------------------------------------------------------------------------*/
+
+.satus-button
+{
+    font-size: 14px;
+
+    display: flex;
+
+    box-sizing: border-box;
+    min-width: 48px;
+    height: 48px;
+    min-height: unset;
+    padding: 0 16px;
+
+    cursor: pointer;
+
+    color: inherit;
+    border: none;
+    outline: none;
+    background: transparent;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.satus-button svg
+{
+    display: block;
+
+    width: 24px;
+    height: 24px;
+
+    fill: inherit;
+}
+
+.satus-button--icon.satus-button--label
+{
+    justify-content: flex-start;
+}
+
+.satus-button--icon.satus-button--label svg
+{
+    width: 20px;
+    height: 20px;
+    margin: 0 8px 0 0;
+}
+
+.satus-button--icon:not(.satus-button--label)
+{
+    padding: 0;
+
+    border-radius: 50%;
+}

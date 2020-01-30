@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "Page Text Customizer",
+    "version": "0.1",
+
+    "default_locale": "en",
+
+    "browser_action": {
+        "default_popup": "index.html"
+    },
+
+    "content_scripts": [{
+        "all_frames": true,
+        "js": [
+            "content-scripts.js"
+        ],
+        "matches": [
+            "*://*/*"
+        ],
+        "run_at": "document_start"
+    }],
+
+    "permissions": [
+        "<all_urls>",
+        "storage"
+    ]
+}
