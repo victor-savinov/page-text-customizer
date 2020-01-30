@@ -1,1 +1,1 @@
-# page-text-customizer
+# Page Text Customizer
