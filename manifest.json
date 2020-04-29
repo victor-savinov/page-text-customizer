@@ -1,10 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "Page Text Customizer",
-    "version": "0.1",
-
-    "default_locale": "en",
-
+    "name": "Regex Replace",
+    "version": "1.0",
     "browser_action": {
         "default_popup": "index.html"
     },
@@ -19,9 +16,18 @@
         ],
         "run_at": "document_start"
     }],
-
     "permissions": [
         "<all_urls>",
         "storage"
-    ]
+    ],
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "linux": "Ctrl+Shift+F",
+                "mac": "Command+Shift+F",
+                "windows": "Ctrl+Shift+F",
+                "chromeos": "Ctrl+Shift+F"
+            }
+        }
+    }
 }
