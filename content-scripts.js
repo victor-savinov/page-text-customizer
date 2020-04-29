@@ -1,16 +1,16 @@
 var regex_data = {};
 
 chrome.storage.local.get(function(items) {
-    var categories = items.categories || {};
+    var categories = JSON.parse(items.data || '{}');
 
-    for (var category_name in categories) {
-        var category = categories[category_name];
+    for (var category_key in categories) {
+        var category = categories[category_key];
 
-        for (var item_name in category) {
-            var item = category[item_name];
+        for (var item_key in category) {
+            var item = category[item_key];
 
-            if (item && item.find_value) {
-                regex_data[item.replace_value] = new RegExp(item.find_value, 'gm');
+            if (item && item.find) {
+                regex_data[item.replace] = new RegExp(item.find, 'gm');
             }
         }
     }
