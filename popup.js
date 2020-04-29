@@ -26,7 +26,7 @@ function remove() {
         data = JSON.parse(Satus.storage.get('data') || '{}');
 
     if (main.history.length > 1) {
-        var key = this.parentNode.querySelector('.satus-switch').dataset.key;
+        var key = this.parentNode.querySelector('.satus-button').dataset.key;
 
         delete data[history_item.storage_key][key];
         delete history_item[key];
@@ -122,9 +122,11 @@ function update(container) {
                         label: data[key].name,
                         before: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>',
                         appearanceKey: 'list',
-                        storage_key: key
+                        storage_key: key,
+                        dataset: {
+                            key: key
+                        }
                     },
-
 
                     button: {
                         type: 'button',
@@ -133,16 +135,19 @@ function update(container) {
                         onclick: remove
                     }
                 };
-                /*ui.list[key].folder.dataset = {
-                    key: key
-                };*/
+
+                for (var key2 in data[key]) {
+                    if (data[key][key2].hasOwnProperty('find')) {
+                        ui.list[key].folder[key2] = data[key][key2];
+                    }
+                }
             }
         }
     } else if (item.appearanceKey === 'list') {
         var has_tasks = false;
 
         for (var key in item) {
-            if (item[key].hasOwnProperty('type')) {
+            if (item[key].hasOwnProperty('find')) {
                 has_tasks = true;
             }
         }
@@ -156,29 +161,33 @@ function update(container) {
             };
         } else {
             for (var key in data[item.storage_key]) {
-                if (typeof data[item.storage_key][key] === 'object') {
+                if (data[item.storage_key][key].hasOwnProperty('find')) {
                     ui.list[key] = {
-                        type: 'section'
-                    };
-                    ui.list[key].folder = data[item.storage_key][key];
-                    ui.list[key].folder.class = 'satus-switch--checkbox';
-                    ui.list[key].folder.dataset = {
-                        key: key
-                    };
-                    ui.list[key].folder.onchange = function() {
-                        var main = document.querySelector('.satus-main'),
-                            history_item = main.history[main.history.length - 1],
-                            data = JSON.parse(Satus.storage.get('data') || '{}');
+                        type: 'section',
 
-                        data[history_item.storage_key][this.dataset.key].value = this.querySelector('input').checked;
-                        Satus.storage.set('data', JSON.stringify(data));
-                    };
+                        button: {
+                            type: 'button',
+                            label: data[item.storage_key][key].find,
+                            storage_key: key,
+                            dataset: {
+                                key: key
+                            },
+                            onclick: function() {
+                                var main = document.querySelector('.satus-main'),
+                                    history_item = main.history[main.history.length - 1],
+                                    data = JSON.parse(Satus.storage.get('data') || '{}');
 
-                    ui.list[key].button = {
-                        type: 'button',
-                        class: 'satus-button--remove',
-                        before: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
-                        onclick: remove
+                                data[history_item.storage_key][this.dataset.key].value = this.querySelector('input').checked;
+                                Satus.storage.set('data', JSON.stringify(data));
+                            }
+                        },
+
+                        remove: {
+                            type: 'button',
+                            class: 'satus-button--remove',
+                            before: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
+                            onclick: remove
+                        }
                     };
                 }
             }
@@ -385,33 +394,6 @@ Menu.main = {
     }
 };
 Satus.storage.import(function() {
-    if (!Satus.storage.get('legacy') && Satus.storage.get('lists')) {
-        var lists = Satus.storage.get('lists'),
-            data = JSON.parse(Satus.storage.get('data') || '{}');
-
-        for (var i in lists) {
-            if (typeof lists[i] === 'object') {
-                data[i] = {
-                    type: 'folder',
-                    label: lists[i].name
-                };
-
-                for (var j in lists[i].items) {
-                    if (typeof lists[i].items[j] === 'object') {
-                        data[i][j] = {
-                            type: 'switch',
-                            label: lists[i].items[j].name,
-                            value: lists[i].items[j].value
-                        };
-                    }
-                }
-            }
-        }
-
-        Satus.storage.set('data', JSON.stringify(data));
-        Satus.storage.set('legacy', true);
-    }
-
     Satus.modules.updateStorageKeys(Menu, function() {
         Satus.render(Menu, document.body);
     });
