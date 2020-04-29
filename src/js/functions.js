@@ -50,6 +50,67 @@ function remove() {
     }
 }
 
+function edit() {
+    var main = document.querySelector('.satus-main'),
+        history_item = main.history[main.history.length - 1],
+        data = JSON.parse(Satus.storage.get('data') || '{}'),
+        key = this.parentNode.querySelector('.satus-button').dataset.key;
+
+    function edit2() {
+        data[history_item.storage_key][key].find = document.querySelector('.satus-text-field--find').value;
+        data[history_item.storage_key][key].replace = document.querySelector('.satus-text-field--replace').value;
+
+        Satus.storage.set('data', JSON.stringify(data));
+
+        document.querySelector('.satus-dialog__scrim').click();
+    }
+
+    Satus.render({
+        type: 'dialog',
+        class: 'satus-dialog--create',
+
+        label: {
+            type: 'text',
+            label: 'Find'
+        },
+        text_field: {
+            type: 'text-field',
+            class: 'satus-text-field--value satus-text-field--find',
+            value: data[history_item.storage_key][key].find,
+            onrender: function() {
+                var self = this;
+
+                setTimeout(function() {
+                    self.focus();
+                });
+            }
+        },
+        label2: {
+            type: 'text',
+            label: 'Replace'
+        },
+        text_field2: {
+            type: 'text-field',
+            class: 'satus-text-field--value satus-text-field--replace',
+            value: data[history_item.storage_key][key].replace,
+            onkeydown: function(event) {
+                if (event.keyCode === 13) {
+                    edit2();
+                }
+            }
+        },
+        section: {
+            type: 'section',
+
+            button: {
+                type: 'button',
+                label: 'Create',
+                onclick: edit2
+            }
+        }
+    });
+}
+
 function update(container) {
     var self = (this === window ? document.querySelector('.satus-main') : this),
         item = self.history[self.history.length - 1],
@@ -171,14 +232,7 @@ function update(container) {
                             dataset: {
                                 key: key
                             },
-                            onclick: function() {
-                                var main = document.querySelector('.satus-main'),
-                                    history_item = main.history[main.history.length - 1],
-                                    data = JSON.parse(Satus.storage.get('data') || '{}');
-
-                                data[history_item.storage_key][this.dataset.key].value = this.querySelector('input').checked;
-                                Satus.storage.set('data', JSON.stringify(data));
-                            }
+                            onclick: edit
                         },
 
                         remove: {
@@ -240,10 +294,14 @@ function create() {
         history_item[task_key] = {
             type: 'section',
 
-            open: {
+            button: {
                 type: 'button',
                 label: value,
-                storage_key: task_key
+                storage_key: task_key,
+                dataset: {
+                    key: task_key
+                },
+                onclick: edit
             },
 
             remove: {
