@@ -9,7 +9,6 @@
     "popup.css": [
         "src/css/themes.css",
         "src/css/basic.css",
-        "src/css/header.css",
         "src/css/main.css",
         "src/css/footer.css"
     ]

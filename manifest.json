@@ -1,7 +1,8 @@
 {
     "manifest_version": 2,
     "name": "Regex Replace",
-    "version": "1.1",
+    "version": "2.0",
+    "default_locale": "en",
     "icons": {
         "16": "assets/icons/16.png",
         "32": "assets/icons/32.png",
@@ -11,13 +12,14 @@
     "browser_action": {
         "default_popup": "index.html"
     },
+    "options_page": "options.html",
     "content_scripts": [{
         "all_frames": true,
         "js": [
             "content-scripts.js"
         ],
         "matches": [
-            "*://*/*"
+            "<all_urls>"
         ],
         "run_at": "document_start"
     }],

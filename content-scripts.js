@@ -1,20 +1,20 @@
 var regex_data = {};
 
 chrome.storage.local.get(function(items) {
-    var categories = JSON.parse(items.data || '{}');
+    var lists = JSON.parse(items.data || '{lists:[]}').lists;
 
-    for (var category_key in categories) {
-        var category = categories[category_key];
+    for (var i = 0, l = lists.length; i < l; i++) {
+        var list = lists[i];
 
-        for (var item_key in category) {
-            var item = category[item_key];
+        for (var j = 0, k = list.items.length; j < k; j++) {
+            var item = list.items[j];
 
             if (item && item.find) {
                 regex_data[item.replace] = new RegExp(item.find, 'gm');
             }
         }
     }
-
+    
     observer.observe(document.documentElement, {
         subtree: true,
         childList: true

@@ -1,0 +1,53 @@
+{
+    "create": {
+        "message": "Создать"
+    },
+    "dataExportedSuccessfully": {
+        "message": "Данные успешно экспортированы"
+    },
+    "dataImportedSuccessfully": {
+        "message": "Данные успешно импортированы"
+    },
+    "encryption": {
+        "message": "Шифрование"
+    },
+    "export": {
+        "message": "Экспорт"
+    },
+    "import": {
+        "message": "Импорт"
+    },
+    "language": {
+        "message": "Язык"
+    },
+    "lists": {
+        "message": "Списки"
+    },
+    "favorites": {
+        "message": "Избранное"
+    },
+    "name": {
+        "message": "Название"
+    },
+    "noLists": {
+        "message": "Нет списков задач"
+    },
+    "noItems": {
+        "message": "Нет пунктов"
+    },
+    "ok": {
+        "message": "Окей"
+    },
+    "password": {
+        "message": "Пароль"
+    },
+    "remove": {
+        "message": "Удалить"
+    },
+    "rename": {
+        "message": "Переименовать"
+    },
+    "selectFile": {
+        "message": "Выберите файл"
+    }
+}

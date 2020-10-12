@@ -1,5 +1,7 @@
-Satus.storage.import(function() {
-    Satus.modules.updateStorageKeys(Menu, function() {
-        Satus.render(Menu, document.body);
+satus.storage.import(function() {
+    satus.modules.updateStorageKeys(Menu, function() {
+        satus.locale.import(satus.storage.get('language'), function() {
+            satus.render(Menu);
+        });
     });
 });
